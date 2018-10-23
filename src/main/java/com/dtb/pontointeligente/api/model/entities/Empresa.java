@@ -24,6 +24,8 @@ public class Empresa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable=false)
+	private String cnpj;
 	@Column(name = "razao_social", nullable = false)
 	private String razaoSocial;
 	@Column(name = "data_criacao", nullable = false)
@@ -76,6 +78,14 @@ public class Empresa implements Serializable {
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
+	
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 
 	@PreUpdate
 	public void preUpdate() {
@@ -91,7 +101,7 @@ public class Empresa implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Empresa [id=" + id + ", razaoSocial=" + razaoSocial + ", dataCriacao=" + dataCriacao
+		return "Empresa [id=" + id + ",cnpj="+cnpj+", razaoSocial=" + razaoSocial + ", dataCriacao=" + dataCriacao
 				+ ", dataAtualizacao=" + dataAtualizacao + ", funcionarios=" + funcionarios + "]";
 	}
 	
