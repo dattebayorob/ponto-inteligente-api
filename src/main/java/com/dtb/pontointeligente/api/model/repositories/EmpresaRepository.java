@@ -8,5 +8,5 @@ import com.dtb.pontointeligente.api.model.entities.Empresa;
 
 public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
 	@Transactional(readOnly = true)
-	Empresa findByCnpj(String cnpj);
+	public Empresa findByCnpj(String cnpj);
 }
