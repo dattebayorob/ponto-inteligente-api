@@ -16,13 +16,17 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.dtb.pontointeligente.api.config.PontoInteligenteProperties;
+
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {
+	
 	private static final long serialVersionUID = 4674523573879048312L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(nullable=false)
 	private String cnpj;
