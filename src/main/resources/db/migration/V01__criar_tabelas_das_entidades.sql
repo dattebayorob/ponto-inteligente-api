@@ -11,7 +11,7 @@ CREATE TABLE funcionario(
 	email VARCHAR(255) NOT NULL,
 	senha VARCHAR(255) NOT NULL,
 	cpf VARCHAR(11) NOT NULL,
-	valor_hora DECIMAL(19,2) NOT NULL,
+	valor_hora DECIMAL(19,2),
 	quantidade_horas_trabalho_dia FLOAT,
 	quantidade_horas_almoco FLOAT,
 	perfil VARCHAR(30) NOT NULL,

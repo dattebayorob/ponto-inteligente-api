@@ -48,7 +48,6 @@ public class FuncionarioRepositoryTest {
 		funcionario.setNome("Robson William da Silva Matos");
 		funcionario.setEmail(EMAIL);
 		funcionario.setPerfil(PerfilEnum.ROLE_USUARIO);
-		funcionario.setValorHora(new BigDecimal("12.0"));
 		funcionario.setEmpresa(empresa);
 		funcionarioRepository.save(funcionario);
 	}
