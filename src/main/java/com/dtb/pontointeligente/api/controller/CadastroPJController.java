@@ -41,25 +41,30 @@ public class CadastroPJController {
 	@PostMapping
 	public ResponseEntity<Response<CadastroPJDto>> cadastrar(@Valid @RequestBody CadastroPJDto cadastroPJDto,
 			BindingResult result) throws NoSuchAlgorithmException{
-		log.info("## - Cadastrando PJ {} - ##",cadastroPJDto.toString());
+		log.info("Cadastrando PJ {}",cadastroPJDto.toString());
 		Response<CadastroPJDto> response = new Response<CadastroPJDto>();
 		validarDadosExistentes(cadastroPJDto, result);
-		log.info("Populando entidade Empresa com dto");
 		Empresa empresa = converterDtoParaEmpresa(cadastroPJDto);
-		log.info("Populando entidade Funcionario com dto");
 		Funcionario funcionario = converterDtoParaFuncionario(cadastroPJDto);
 		if(result.hasErrors()) {
 			log.error("Erro validando dados de cadastro PJ: {}",result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErros().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		log.info("Cadastrando empresa negada! {}",empresa);
 		empresaService.adicionar(empresa);
 		funcionario.setEmpresa(empresa);
 		funcionarioService.adicionar(funcionario);
 		response.setData(converterCadastroPJDto(funcionario));
 		return ResponseEntity.ok(response);
 	}
+	
+	/**
+	 * Retorna um CadastroPJDto com os dados persistidos
+	 * 
+	 * @param funcionario
+	 * @return cadastroPJDto
+	 * 
+	 * */
 	
 	private CadastroPJDto converterCadastroPJDto(Funcionario funcionario) {
 		CadastroPJDto cadastroPJDTo = new CadastroPJDto();
@@ -105,7 +110,7 @@ public class CadastroPJController {
 		empresa.setRazaoSocial(cadastroPJDto.getRazaoSocial());
 		return empresa;
 	}
-
+	
 	private void validarDadosExistentes(CadastroPJDto cadastroPJDto, BindingResult result) {
 		empresaService.buscarPorCnpj(cadastroPJDto.getCnpj())
 				.ifPresent(emp -> result.addError(new ObjectError("empresa", "Empresa já existente")));
