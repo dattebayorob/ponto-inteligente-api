@@ -28,7 +28,7 @@ import com.dtb.pontointeligente.api.services.FuncionarioService;
 
 @RestController
 @RequestMapping("/api/cadastrar-pf")
-@CrossOrigin("*")
+@CrossOrigin(origins="*")
 public class CadastroPFController {
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(CadastroPFController.class);
 
