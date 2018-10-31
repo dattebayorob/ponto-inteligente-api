@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -27,7 +28,7 @@ public class Lancamento implements Serializable {
 	private static final long serialVersionUID = 5444901359763644653L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
@@ -43,6 +44,7 @@ public class Lancamento implements Serializable {
 	@Column(nullable=false)
 	private TipoEnum tipo;
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_funcionario")
 	private Funcionario funcionario;
 
 	public Lancamento() {

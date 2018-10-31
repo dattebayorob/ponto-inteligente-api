@@ -23,10 +23,9 @@ import com.dtb.pontointeligente.api.config.PontoInteligenteProperties;
 @Entity
 @Table(name = "empresa")
 public class Empresa implements Serializable {
-	
 	private static final long serialVersionUID = 4674523573879048312L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable=false)
 	private String cnpj;

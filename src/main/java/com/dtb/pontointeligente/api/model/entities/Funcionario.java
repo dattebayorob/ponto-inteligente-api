@@ -15,6 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -30,7 +31,7 @@ public class Funcionario implements Serializable {
 	private static final long serialVersionUID = -3066645567992959444L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String nome;
@@ -51,6 +52,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "data_atualizacao", nullable = false)
 	private Date dataAtualizacao;
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="id_empresa")	
 	private Empresa empresa;
 	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Lancamento> lancamentos;
