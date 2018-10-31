@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.dtb.pontointeligente.api.model.enums.PerfilEnum;
 
@@ -52,7 +50,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "data_atualizacao", nullable = false)
 	private Date dataAtualizacao;
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="id_empresa")	
+	@JoinColumn(name = "id_empresa")
 	private Empresa empresa;
 	@OneToMany(mappedBy = "funcionario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Lancamento> lancamentos;
@@ -175,19 +173,6 @@ public class Funcionario implements Serializable {
 		final Date dataAtual = new Date();
 		dataCriacao = dataAtual;
 		dataAtualizacao = dataAtual;
-	}
-
-	/**
-	 * @Transient indica que essa entidade não deve ser persistida
-	 */
-	@Transient
-	public Optional<BigDecimal> getValorHoraOpt() {
-		return Optional.ofNullable(valorHora);
-	}
-
-	@Transient
-	public Optional<Float> getQtdHorasTrabalhoDiaOpt() {
-		return Optional.ofNullable(qtdHorasTrabalhoDia);
 	}
 
 	@Override
