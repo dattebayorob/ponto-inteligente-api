@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 @ActiveProfiles("test")
 public class PasswordUtilsTest {
-	private static final String senha="user";
+	private static final String senha="qwe123";
 	@Test
 	public void testEncode() {
 		BCryptPasswordEncoder bcrypte = new BCryptPasswordEncoder();

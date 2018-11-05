@@ -101,7 +101,7 @@ public class JwtTokenUtils {
 		userDetails.getAuthorities().forEach(authority -> claims.put(CLAIM_KEY_ROLE, authority.getAuthority()));
 		claims.put(CLAIM_KEY_CRETATED, new Date());
 
-		return gerarToken((Claims) claims);
+		return gerarToken(claims);
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class JwtTokenUtils {
 	 * 
 	 */
 
-	private String gerarToken(Claims claims) {
+	private String gerarToken(Map<String, Object> claims) {
 		return Jwts.builder().setClaims(claims).setExpiration(gerarDataExpiracao())
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
