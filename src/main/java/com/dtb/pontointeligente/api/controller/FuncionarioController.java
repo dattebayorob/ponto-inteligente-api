@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dtb.pontointeligente.api.model.dtos.FuncionarioDto;
 import com.dtb.pontointeligente.api.model.entities.Funcionario;
+import com.dtb.pontointeligente.api.model.repositories.FuncionarioRepository;
 import com.dtb.pontointeligente.api.model.response.Response;
 import com.dtb.pontointeligente.api.security.utils.PasswordUtils;
 import com.dtb.pontointeligente.api.services.FuncionarioService;
@@ -36,6 +38,34 @@ public class FuncionarioController {
 	public FuncionarioController() {
 		// TODO Auto-generated constructor stub
 	}
+
+	/**
+	 *
+	 * Retorna as informações de um funcionário dado o id
+	 * 
+	 * @param id
+	 * @return ResponseEntity<Response<FuncionarioDto>>
+	 * 
+	 **/
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Response<FuncionarioDto>> buscarPorId(@PathVariable("id") Long id) {
+		Optional<Funcionario> funcionario = funcionarioService.buscarPorId(id);
+		Response<FuncionarioDto> response = new Response<>();
+		if (!funcionario.isPresent())
+			return ResponseEntity.notFound().build();
+		response.setData(converterFuncionarioDto(funcionario.get()));
+		return ResponseEntity.ok(response);
+	}
+
+	/**
+	 * 
+	 * Atualiza um funcionario dado o id
+	 * 
+	 * @param id
+	 * @return ResponseEntity<Response<FuncionarioDto>>
+	 * 
+	 */
 
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<Response<FuncionarioDto>> atualizar(@PathVariable("id") Long id,
@@ -57,6 +87,15 @@ public class FuncionarioController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * 
+	 * Converte uma entidade Funcionario para um Dto
+	 * 
+	 * @param funcionario
+	 * @return funcionarioDto
+	 * 
+	 */
+
 	private FuncionarioDto converterFuncionarioDto(Funcionario funcionario) {
 		FuncionarioDto funcionarioDto = new FuncionarioDto();
 		funcionarioDto.setEmail(funcionario.getEmail());
@@ -68,6 +107,17 @@ public class FuncionarioController {
 		funcionarioDto.setValorHora(Optional.ofNullable(String.valueOf(funcionario.getValorHora())));
 		return funcionarioDto;
 	}
+
+	/**
+	 * 
+	 * Valida e atualiza os dados de um funcionario com as informações recebidas
+	 * pelo DTO
+	 * 
+	 * @param funcionario
+	 * @param funcionarioDto
+	 * @param result
+	 * 
+	 */
 
 	private void validarEAtualizarDadosFuncionario(Funcionario funcionario, FuncionarioDto funcionarioDto,
 			BindingResult result) {

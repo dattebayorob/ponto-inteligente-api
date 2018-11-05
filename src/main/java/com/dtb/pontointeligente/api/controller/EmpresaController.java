@@ -21,23 +21,41 @@ import com.dtb.pontointeligente.api.services.EmpresaService;
 @RequestMapping("/api/empresas")
 @CrossOrigin(origins = "*")
 public class EmpresaController {
-	private static final Logger log  = LoggerFactory.getLogger(EmpresaController.class);
+	private static final Logger log = LoggerFactory.getLogger(EmpresaController.class);
 	@Autowired
 	private EmpresaService empresaService;
-	
-	@GetMapping(value="/cnpj/{cnpj}")
-	public ResponseEntity<Response<EmpresaDto>> buscarPorCnpj(@PathVariable("cnpj") String cnpj){
-		log.info("Buscando empresa pelo CNPJ {}",cnpj);
+
+	/**
+	 * 
+	 * Busca as informações de uma empresa dado o cnpj
+	 * 
+	 * @param cnpj
+	 * @return ResponseEntity<Response<Empresadto>>
+	 * 
+	 */
+
+	@GetMapping(value = "/cnpj/{cnpj}")
+	public ResponseEntity<Response<EmpresaDto>> buscarPorCnpj(@PathVariable("cnpj") String cnpj) {
+		log.info("Buscando empresa pelo CNPJ {}", cnpj);
 		Response<EmpresaDto> response = new Response<>();
 		Optional<Empresa> empresa = empresaService.buscarPorCnpj(cnpj);
-		if(!empresa.isPresent()) {
-			log.info("Empresa nao encontrado para o CNPJ {}",cnpj);
-			response.getErros().add("Empresa não encontrada para o CNPJ "+cnpj);
+		if (!empresa.isPresent()) {
+			log.info("Empresa nao encontrado para o CNPJ {}", cnpj);
+			response.getErros().add("Empresa não encontrada para o CNPJ " + cnpj);
 			return ResponseEntity.badRequest().body(response);
 		}
 		response.setData(converterEmpresaDto(empresa.get()));
 		return ResponseEntity.ok(response);
 	}
+
+	/**
+	 * 
+	 * Converte uma entidade Empresa em um Dto
+	 * 
+	 * @param empresa
+	 * @return empresaDto
+	 * 
+	 */
 
 	private EmpresaDto converterEmpresaDto(Empresa empresa) {
 		EmpresaDto empresaDto = new EmpresaDto();

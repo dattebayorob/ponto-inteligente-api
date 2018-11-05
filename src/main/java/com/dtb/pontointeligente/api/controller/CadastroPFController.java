@@ -28,7 +28,7 @@ import com.dtb.pontointeligente.api.services.FuncionarioService;
 
 @RestController
 @RequestMapping("/api/cadastrar-pf")
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class CadastroPFController {
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(CadastroPFController.class);
 
@@ -41,6 +41,14 @@ public class CadastroPFController {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 
+	 * Adiciona uma pessoa fisica no banco de dados
+	 * 
+	 * @param cadastroPFDto
+	 * @return ResponseEntity<Response<CadastroPFDto>>
+	 * 
+	 */
 	@PostMapping
 	public ResponseEntity<Response<CadastroPFDto>> cadastrar(@Valid @RequestBody CadastroPFDto cadastroPFDto,
 			BindingResult result) throws NoSuchAlgorithmException {
@@ -60,6 +68,15 @@ public class CadastroPFController {
 		return ResponseEntity.ok(response);
 	}
 
+	/**
+	 * 
+	 * Converte uma entidade funcionario em um DTO
+	 * 
+	 * @param funcionario
+	 * @return cadastroPFDto
+	 * 
+	 */
+
 	private CadastroPFDto converterCadastroPFDto(Funcionario funcionario) {
 		CadastroPFDto cadastroPFDTo = new CadastroPFDto();
 		cadastroPFDTo.setId(funcionario.getId());
@@ -67,14 +84,20 @@ public class CadastroPFController {
 		cadastroPFDTo.setEmail(funcionario.getEmail());
 		cadastroPFDTo.setCpf(funcionario.getCpf());
 		cadastroPFDTo.setCnpj(funcionario.getEmpresa().getCnpj());
-		cadastroPFDTo.setQtdHorasAlmoco(Optional
-				.ofNullable(String.valueOf(funcionario.getQtdHorasAlmoco())));
-		cadastroPFDTo.setQtdHorasTrabalhoDia(Optional
-				.ofNullable(String.valueOf(funcionario.getQtdHorasTrabalhoDia())));
-		cadastroPFDTo.setValorHora(Optional
-				.ofNullable(String.valueOf(funcionario.getValorHora())));
+		cadastroPFDTo.setQtdHorasAlmoco(Optional.ofNullable(String.valueOf(funcionario.getQtdHorasAlmoco())));
+		cadastroPFDTo.setQtdHorasTrabalhoDia(Optional.ofNullable(String.valueOf(funcionario.getQtdHorasTrabalhoDia())));
+		cadastroPFDTo.setValorHora(Optional.ofNullable(String.valueOf(funcionario.getValorHora())));
 		return cadastroPFDTo;
 	}
+
+	/***
+	 * 
+	 * Converte um DTO em uma entidade Funcionario
+	 * 
+	 * @param cadastroPFDto
+	 * @param result
+	 * 
+	 */
 
 	private Funcionario converterDtoParaFuncionario(CadastroPFDto cadastroPFDto, BindingResult result) {
 		Funcionario funcionario = new Funcionario();
@@ -92,6 +115,15 @@ public class CadastroPFController {
 		return funcionario;
 	}
 
+	/**
+	 * 
+	 * Valida se os dados informados estão corretos
+	 * 
+	 * @param cadastroPFDto
+	 * @param result
+	 * 
+	 */
+	
 	private void validarDadosExistentes(CadastroPFDto cadastroPFDto, BindingResult result) {
 		Optional<Empresa> empresa = empresaService.buscarPorCnpj(cadastroPFDto.getCnpj());
 		if (!empresa.isPresent()) {
