@@ -22,7 +22,11 @@ public class BasicSecurity extends WebSecurityConfigurerAdapter {
           .inMemoryAuthentication()
           .withUser("admin")
             .password("$2a$10$KnMisxgCqONRa3iO57d62.s7BptTTbrrlMKZJo.xcpb.dQrjFlqNK")
-            .roles("USER","ADMIN");
+            .roles("USER","ADMIN")
+            .and()
+            	.withUser("user")
+            	.password("$2a$10$XKWtpBkTxzc6NnbCN3n0OeH1MTTPqWmpDyd4jIt1ARGUqz.Z.rJEK")
+            	.roles("USER");
     }
  
     @Override
