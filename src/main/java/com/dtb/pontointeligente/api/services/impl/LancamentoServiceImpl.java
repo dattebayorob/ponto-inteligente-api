@@ -30,7 +30,7 @@ public class LancamentoServiceImpl implements LancamentoService{
 		return lancamentoRepository.findById(id);
 	}
 	@Override
-	public Lancamento adicionar(Lancamento lancamento) {
+	public Lancamento persistir(Lancamento lancamento) {
 		log.info("Persistindo um Lancamento no banco de dados: {}",lancamento);
 		return lancamentoRepository.save(lancamento);
 	}

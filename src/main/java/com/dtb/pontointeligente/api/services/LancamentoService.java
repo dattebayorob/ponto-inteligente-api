@@ -42,7 +42,7 @@ public interface LancamentoService{
 	 * @return Lancamento
 	 */
 
-	Lancamento adicionar(Lancamento lancamento);
+	Lancamento persistir(Lancamento lancamento);
 	
 	/**
 	 * 

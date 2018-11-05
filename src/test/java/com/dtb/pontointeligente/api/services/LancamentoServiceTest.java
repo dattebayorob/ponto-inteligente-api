@@ -55,7 +55,7 @@ public class LancamentoServiceTest {
 	}
 	@Test
 	public void testAdicionar() {
-		Lancamento lancamento = lancamentoService.adicionar(new Lancamento());
+		Lancamento lancamento = lancamentoService.persistir(new Lancamento());
 		assertNotNull(lancamento);
 	}
 }
