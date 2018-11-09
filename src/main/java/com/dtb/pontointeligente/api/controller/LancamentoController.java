@@ -247,6 +247,7 @@ public class LancamentoController {
 		lancamentoDto.setId(Optional.ofNullable(lancamento.getId()));
 		lancamentoDto.setIdFuncionario(lancamento.getFuncionario().getId());
 		lancamentoDto.setLocalizacao(lancamento.getLocalizacao());
+		lancamentoDto.setTipo(String.valueOf(lancamento.getTipo()));
 		return lancamentoDto;
 	}
 

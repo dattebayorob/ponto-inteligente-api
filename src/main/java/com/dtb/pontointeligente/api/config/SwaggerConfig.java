@@ -46,7 +46,6 @@ public class SwaggerConfig {
 		try {
 			UserDetails userDetails = userDetailsService.loadUserByUsername("admin@dtb.com");
 			token = jwtTokenUtils.obterToken(userDetails);
-			System.out.println(token);
 		} catch (Exception e) {
 			token = "";
 		}
