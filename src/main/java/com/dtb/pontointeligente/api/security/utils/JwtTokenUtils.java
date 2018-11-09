@@ -18,7 +18,7 @@ public class JwtTokenUtils {
 	static final String CLAIM_KEY_USERNAME = "sub";
 	static final String CLAIM_KEY_ROLE = "role";
 	static final String CLAIM_KEY_AUDIENCE = "audience";
-	static final String CLAIM_KEY_CRETATED = "created";
+	static final String CLAIM_KEY_CREATED = "created";
 
 	@Value("${jwt.secret}")
 	private String secret;
@@ -78,7 +78,7 @@ public class JwtTokenUtils {
 		String refreshedToken;
 		try {
 			Claims claims = getClaimsFromToken(token);
-			claims.put(CLAIM_KEY_CRETATED, new Date());
+			claims.put(CLAIM_KEY_CREATED, new Date());
 			refreshedToken = gerarToken(claims);
 		} catch (Exception e) {
 			refreshedToken = null;
@@ -99,7 +99,7 @@ public class JwtTokenUtils {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
 		userDetails.getAuthorities().forEach(authority -> claims.put(CLAIM_KEY_ROLE, authority.getAuthority()));
-		claims.put(CLAIM_KEY_CRETATED, new Date());
+		claims.put(CLAIM_KEY_CREATED, new Date());
 
 		return gerarToken(claims);
 	}

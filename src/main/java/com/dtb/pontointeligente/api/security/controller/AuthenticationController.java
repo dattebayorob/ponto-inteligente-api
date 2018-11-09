@@ -59,9 +59,7 @@ public class AuthenticationController {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(authenticationDto.getEmail(), authenticationDto.getSenha())
 				);
-		log.info("2 ###");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		log.info("3 ###");
 		UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDto.getEmail());
 		String token = jwtTokenUtils.obterToken(userDetails);	
 		response.setData(new TokenDto(token));
